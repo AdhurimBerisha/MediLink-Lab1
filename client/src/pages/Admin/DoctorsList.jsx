@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../../context/AdminContext";
 
 const DoctorsList = () => {
-  const { doctors, aToken, getAllDoctors, changeAvailability } =
+  const { doctors, aToken, getAllDoctors, changeAvailability, deleteDoctor } =
     useContext(AdminContext);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,6 +47,20 @@ const DoctorsList = () => {
                   checked={item.available}
                 />
                 <p>Available</p>
+                <button
+                  className="mt-2 ml-12 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Are you sure you want to delete this doctor?"
+                      )
+                    ) {
+                      deleteDoctor(item.id);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>

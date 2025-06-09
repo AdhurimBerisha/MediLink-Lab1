@@ -98,6 +98,19 @@ const addDoctor = async (req, res) => {
   }
 };
 
+const deleteDoctor = async (req, res) => {
+  try {
+    const { docId } = req.body;
+    if (!docId)
+      return res.json({ success: false, message: "Doctor ID required" });
+    await pool.execute("DELETE FROM doctors WHERE id = ?", [docId]);
+    res.json({ success: true, message: "Doctor deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
 const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -409,4 +422,5 @@ export {
   adminDashboard,
   appointmentCompleteAdmin,
   getAllDiagnoses,
+  deleteDoctor,
 };
